@@ -16,17 +16,36 @@ The goal is to build a safe educational chatbot that can classify a user's medic
 ```text
 PROG8245_Final_Project/
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/                       # Raw dataset files
+│   │   ├── medical_intent_dataset.csv
+│   │   └── intent_responses.json
+│   └── processed/                 # Processed dataset files
+│       ├── train.csv
+│       └── test.csv
 ├── models/
+│   ├── baseline_nb.joblib         # Trained baseline model
+│   └── baseline_nb.metadata.json  # Model metadata
 ├── notebooks/
+│   └── FinalProjectDryRun_completed.ipynb
 ├── documentation/
+│   ├── architecture.md
+│   ├── development_plan.md
+│   ├── evaluation_metrics.json
+│   ├── pitch.md
+│   └── user_manual.md
 ├── src/
-├── app.py
-├── dvc.yaml
-├── params.yaml
+│   ├── __init__.py
+│   ├── data_processing.py         # Data loading and preprocessing
+│   ├── predict.py                 # Intent prediction & main logic
+│   ├── train.py                   # Model training pipeline
+│   ├── evaluate.py                # Model evaluation
+│   └── utils.py                   # Language detection & translation utilities
+├── app.py                         # Gradio web interface
+├── dvc.yaml                       # DVC pipeline configuration
+├── params.yaml                    # Training parameters
+├── requirements.txt
 ├── README.md
-└── requirements.txt
+└── .env                           # API keys (add manually, not in repo)
 ```
 
 ## Quick Start
@@ -50,6 +69,11 @@ python -m src.evaluate --model-path models/baseline_nb.joblib
 ### 4. Run the web app
 ```bash
 python app.py
+```
+
+### 5. Test Predict (Optional, test only)
+```bash
+python -m src.predict "QUESTION"
 ```
 
 ## DVC Workflow
