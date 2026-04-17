@@ -2,6 +2,20 @@
 
 MediChat is a multilingual, audio/text-ready medical chatbot prototype for the PROG8245 final project. The current implementation focuses on intent classification for narrow-domain respiratory health questions using classical NLP methods required by the course brief: TF-IDF vectorization, optional dimensionality reduction, and machine learning classifiers.
 
+# Group Info
+- Group Name: Group1, Group8
+- Group Members:
+    - Ce Chen, 9007166
+    - Zhuoran Zhang, 9048508
+    - Haibo Yuan, 9010929
+    - Abdallah Mohamed, 9089339
+
+# GitHub Link
+https://github.com/chence/PROG8245_CSCN8010_Final_Project_Dry_Run.git
+
+ # Mp4 Link
+https://github.com/chence/PROG8245_CSCN8010_Final_Project_Dry_Run/blob/master/mp4/FinalProjectDryRun.mp4
+
 ## Project Goal
 The goal is to build a safe educational chatbot that can classify a user's medical question into an intent category and return an appropriate general response. The project is intentionally limited to general information only and does not provide diagnosis.
 
