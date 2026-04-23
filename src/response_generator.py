@@ -29,6 +29,21 @@ def _local_response(
     if not context_items:
         return f"{fallback_message}\n\n{SAFETY_NOTICE}"
 
+    question_lower = user_question.lower()
+    if intent == "Medication Question":
+        if "ibuprofen" in question_lower:
+            return (
+                "Yes, in general, ibuprofen is commonly used as an over-the-counter option for pain or fever relief for many adults. "
+                "Please follow the package label and ask a pharmacist or clinician if you are unsure whether it is appropriate for you.\n\n"
+                f"{SAFETY_NOTICE}"
+            )
+        if "acetaminophen" in question_lower or "paracetamol" in question_lower or "tylenol" in question_lower:
+            return (
+                "Yes, in general, acetaminophen is commonly used as an over-the-counter option for pain or fever relief. "
+                "Please follow the package label carefully and avoid taking more than one product with the same active ingredient.\n\n"
+                f"{SAFETY_NOTICE}"
+            )
+
     bullet_points = []
     for item in context_items[:3]:
         bullet_points.append(f"- {item['title']}: {item['content']}")
@@ -80,7 +95,10 @@ def generate_controlled_response(
                         "You are MediChat, a medical information chatbot for a course project. "
                         "Use only the supplied context. Do not diagnose, prescribe, or invent facts. "
                         "If the context is insufficient, say the question is unsupported. "
-                        "Keep the answer concise, conversational, and safe."
+                        "Keep the answer concise, conversational, and safe. "
+                        "If the supplied context clearly supports a common over-the-counter medicine such as ibuprofen "
+                        "or acetaminophen as a general option, start with a short direct sentence such as "
+                        "'Yes, in general...' and then add one short safety sentence before the reminder."
                     ),
                 },
                 {

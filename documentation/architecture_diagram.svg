@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
   <title id="title">MediChat Architecture Diagram</title>
-  <desc id="desc">Architecture diagram for the MediChat multilingual medical information chatbot project.</desc>
+  <desc id="desc">Architecture diagram for the MediChat multilingual medical information chatbot with routing, clarification, and session summary agents.</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f4f8ff" />
@@ -29,139 +29,133 @@
       .box-green { fill: #edf9f2; stroke: #75c79d; stroke-width: 2; rx: 18; }
       .box-orange { fill: #fff4e9; stroke: #f0b06d; stroke-width: 2; rx: 18; }
       .box-violet { fill: #f5f0ff; stroke: #b59bed; stroke-width: 2; rx: 18; }
-      .datastore { fill: #fdfefe; stroke: #7ea6d8; stroke-width: 2; }
+      .box-gold { fill: #fff9e8; stroke: #d9b55b; stroke-width: 2; rx: 18; }
       .connector { stroke: #5873a6; stroke-width: 3; fill: none; marker-end: url(#arrow); }
       .connector-dashed { stroke: #6b88b7; stroke-width: 3; fill: none; stroke-dasharray: 10 8; marker-end: url(#arrow); }
       .divider { stroke: #d6e1f3; stroke-width: 2; }
     </style>
   </defs>
 
-  <rect x="0" y="0" width="1600" height="950" fill="url(#bg)" />
+  <rect x="0" y="0" width="1600" height="980" fill="url(#bg)" />
 
-  <text x="80" y="70" class="title">MediChat Architecture Diagram</text>
-  <text x="80" y="105" class="subtitle">Multilingual medical information chatbot for the PROG8245 and CSCN8010 final project</text>
+  <text x="80" y="68" class="title">MediChat Architecture Diagram</text>
+  <text x="80" y="102" class="subtitle">Classical ML + retrieval + multilingual preprocessing + lightweight AI agent layer</text>
 
-  <rect x="50" y="140" width="300" height="620" class="panel" filter="url(#shadow)" />
-  <text x="80" y="190" class="section">Front End / Client</text>
+  <rect x="50" y="135" width="290" height="650" class="panel" filter="url(#shadow)" />
+  <text x="78" y="182" class="section">Front End / Client</text>
 
-  <rect x="80" y="220" width="240" height="120" class="box-blue" />
-  <text x="104" y="255" class="box-title">User</text>
-  <text x="104" y="288" class="box-text">Students or demo audience</text>
-  <text x="104" y="315" class="small">Ask health questions by text</text>
-  <text x="104" y="338" class="small">or microphone input</text>
+  <rect x="78" y="210" width="234" height="108" class="box-blue" />
+  <text x="102" y="244" class="box-title">User</text>
+  <text x="102" y="274" class="box-text">Student or demo audience</text>
+  <text x="102" y="298" class="small">Asks questions by text or voice</text>
 
-  <rect x="80" y="375" width="240" height="250" class="box-blue" />
-  <text x="104" y="410" class="box-title">Gradio Web UI</text>
-  <text x="104" y="442" class="box-text">`app.py`</text>
-  <text x="104" y="472" class="small">Conversation window</text>
-  <text x="104" y="496" class="small">History sidebar and turn details</text>
-  <text x="104" y="520" class="small">Text composer and send action</text>
-  <text x="104" y="544" class="small">Audio upload / microphone capture</text>
-  <text x="104" y="568" class="small">Session-aware interaction flow</text>
+  <rect x="78" y="345" width="234" height="250" class="box-blue" />
+  <text x="102" y="379" class="box-title">Gradio Web UI</text>
+  <text x="102" y="408" class="box-text">`app.py`</text>
+  <text x="102" y="435" class="small">Conversation window</text>
+  <text x="102" y="459" class="small">History sidebar</text>
+  <text x="102" y="483" class="small">Turn details</text>
+  <text x="102" y="507" class="small">Text composer and send</text>
+  <text x="102" y="531" class="small">Microphone recording</text>
+  <text x="102" y="555" class="small">Shared session links</text>
 
-  <rect x="80" y="655" width="240" height="70" class="box-orange" />
-  <text x="104" y="697" class="box-title">Protocol</text>
-  <text x="210" y="697" class="box-text">HTTP / WebSocket</text>
+  <rect x="78" y="625" width="234" height="70" class="box-orange" />
+  <text x="102" y="667" class="box-title">Protocol</text>
+  <text x="205" y="667" class="box-text">HTTP / WebSocket</text>
 
-  <rect x="390" y="140" width="360" height="620" class="panel" filter="url(#shadow)" />
-  <text x="420" y="190" class="section">Application / Middleware</text>
+  <rect x="380" y="135" width="420" height="650" class="panel" filter="url(#shadow)" />
+  <text x="410" y="182" class="section">Application / Middleware</text>
 
-  <rect x="420" y="220" width="300" height="120" class="box-orange" />
-  <text x="445" y="255" class="box-title">Request Orchestration</text>
-  <text x="445" y="285" class="box-text">`app.py` event handlers</text>
-  <text x="445" y="313" class="small">Queues text or audio input</text>
-  <text x="445" y="336" class="small">Builds chat history and UI updates</text>
+  <rect x="412" y="210" width="356" height="88" class="box-orange" />
+  <text x="438" y="242" class="box-title">Request Orchestration</text>
+  <text x="438" y="270" class="box-text">`app.py` event handlers and UI state</text>
 
-  <rect x="420" y="365" width="300" height="120" class="box-orange" />
-  <text x="445" y="400" class="box-title">Session State</text>
-  <text x="445" y="430" class="box-text">`session_id` and turn metadata</text>
-  <text x="445" y="458" class="small">Loads history and keeps current context</text>
+  <rect x="412" y="318" width="356" height="88" class="box-orange" />
+  <text x="438" y="350" class="box-title">Speech + Language Preprocessing</text>
+  <text x="438" y="378" class="box-text">Transcription, language detection, translation to English</text>
 
-  <rect x="420" y="510" width="300" height="190" class="box-orange" />
-  <text x="445" y="545" class="box-title">Routing Logic</text>
-  <text x="445" y="575" class="box-text">Text path</text>
-  <text x="560" y="575" class="box-text">or</text>
-  <text x="595" y="575" class="box-text">Audio path</text>
-  <text x="445" y="606" class="small">1. transcribe when audio is present</text>
-  <text x="445" y="630" class="small">2. detect language and translate to English</text>
-  <text x="445" y="654" class="small">3. call MediChat runtime engine</text>
-  <text x="445" y="678" class="small">4. render multilingual response to the UI</text>
+  <rect x="412" y="426" width="356" height="88" class="box-gold" />
+  <text x="438" y="458" class="box-title">Routing Agent</text>
+  <text x="438" y="486" class="box-text">Greeting, urgent safety, summary, or standard QA path</text>
 
-  <rect x="790" y="140" width="760" height="620" class="panel" filter="url(#shadow)" />
-  <text x="820" y="190" class="section">Back End Services and Data Resources</text>
+  <rect x="412" y="534" width="356" height="88" class="box-gold" />
+  <text x="438" y="566" class="box-title">Clarification Agent</text>
+  <text x="438" y="594" class="box-text">Requests more detail when the user query is vague</text>
 
-  <line x1="1165" y1="215" x2="1165" y2="735" class="divider" />
-  <text x="840" y="225" class="subtitle">Runtime Services</text>
-  <text x="1200" y="225" class="subtitle">Persistent Data and Model Assets</text>
+  <rect x="412" y="642" width="356" height="108" class="box-orange" />
+  <text x="438" y="674" class="box-title">Standard Runtime Flow</text>
+  <text x="438" y="702" class="box-text">Build contextual query and call `MediChatEngine`</text>
+  <text x="438" y="726" class="small">ML intent classification + retrieval + controlled generation</text>
 
-  <rect x="830" y="245" width="290" height="95" class="box-green" />
-  <text x="855" y="278" class="box-title">Speech-to-Text</text>
-  <text x="855" y="307" class="box-text">`src/speech_to_text.py`</text>
-  <text x="855" y="330" class="small">Transcribes microphone or uploaded audio</text>
+  <rect x="840" y="135" width="710" height="650" class="panel" filter="url(#shadow)" />
+  <text x="870" y="182" class="section">Back End Services and Data Resources</text>
+  <line x1="1165" y1="206" x2="1165" y2="760" class="divider" />
+  <text x="885" y="215" class="subtitle">Runtime Services</text>
+  <text x="1200" y="215" class="subtitle">Data / Models / Storage</text>
 
-  <rect x="830" y="360" width="290" height="115" class="box-green" />
-  <text x="855" y="393" class="box-title">Language Detection and Translation</text>
-  <text x="855" y="422" class="box-text">`src/translation.py`</text>
-  <text x="855" y="445" class="small">Detects source language</text>
-  <text x="855" y="468" class="small">Translates to and from English when needed</text>
+  <rect x="872" y="235" width="260" height="86" class="box-green" />
+  <text x="896" y="267" class="box-title">Speech-to-Text</text>
+  <text x="896" y="294" class="box-text">`src/speech_to_text.py`</text>
 
-  <rect x="830" y="495" width="290" height="105" class="box-green" />
-  <text x="855" y="528" class="box-title">Dialogue Manager</text>
-  <text x="855" y="557" class="box-text">`src/dialogue_manager.py`</text>
-  <text x="855" y="580" class="small">Builds context for short follow-up questions</text>
+  <rect x="872" y="340" width="260" height="96" class="box-green" />
+  <text x="896" y="372" class="box-title">Translation Layer</text>
+  <text x="896" y="399" class="box-text">`src/translation.py`</text>
+  <text x="896" y="422" class="small">Detect and translate languages</text>
 
-  <rect x="830" y="620" width="290" height="105" class="box-green" />
-  <text x="855" y="653" class="box-title">MediChat Engine</text>
-  <text x="855" y="682" class="box-text">`src/predict.py`</text>
-  <text x="855" y="705" class="small">Coordinates intent, retrieval, safety checks, and response flow</text>
+  <rect x="872" y="455" width="260" height="96" class="box-green" />
+  <text x="896" y="487" class="box-title">Dialogue Manager</text>
+  <text x="896" y="514" class="box-text">`src/dialogue_manager.py`</text>
+  <text x="896" y="537" class="small">Context building + summary generation</text>
 
-  <rect x="1200" y="250" width="300" height="92" class="box-violet" />
-  <text x="1225" y="283" class="box-title">Intent Classifier</text>
-  <text x="1225" y="312" class="box-text">Classical ML model artifact</text>
-  <text x="1225" y="335" class="small">Naive Bayes / Logistic Regression pipelines</text>
+  <rect x="872" y="570" width="260" height="110" class="box-green" />
+  <text x="896" y="602" class="box-title">MediChat Engine</text>
+  <text x="896" y="629" class="box-text">`src/predict.py`</text>
+  <text x="896" y="652" class="small">Orchestrates intent, retrieval, safety, and response flow</text>
 
-  <rect x="1200" y="360" width="300" height="92" class="box-violet" />
-  <text x="1225" y="393" class="box-title">Knowledge Base</text>
-  <text x="1225" y="422" class="box-text">`data/raw/medical_knowledge_base.json`</text>
-  <text x="1225" y="445" class="small">Curated medical support snippets</text>
+  <rect x="1200" y="240" width="310" height="90" class="box-violet" />
+  <text x="1226" y="272" class="box-title">Intent Classifier</text>
+  <text x="1226" y="299" class="box-text">Classical ML model artifact</text>
+  <text x="1226" y="322" class="small">Naive Bayes / Logistic Regression pipelines</text>
 
-  <rect x="1200" y="470" width="300" height="92" class="box-violet" />
-  <text x="1225" y="503" class="box-title">Fallback Responses</text>
-  <text x="1225" y="532" class="box-text">`data/raw/intent_responses.json`</text>
-  <text x="1225" y="555" class="small">Safe unsupported or low-confidence replies</text>
+  <rect x="1200" y="350" width="310" height="90" class="box-violet" />
+  <text x="1226" y="382" class="box-title">Knowledge Base</text>
+  <text x="1226" y="409" class="box-text">`medical_knowledge_base.json`</text>
+  <text x="1226" y="432" class="small">Curated supported medical snippets</text>
 
-  <rect x="1200" y="580" width="300" height="92" class="box-violet" />
-  <text x="1225" y="613" class="box-title">SQLite Session Store</text>
-  <text x="1225" y="642" class="box-text">`data/medichat.sqlite3` via `src/database.py`</text>
-  <text x="1225" y="665" class="small">Sessions, turns, language, confidence, retrieval metadata</text>
+  <rect x="1200" y="460" width="310" height="90" class="box-violet" />
+  <text x="1226" y="492" class="box-title">Fallback Responses</text>
+  <text x="1226" y="519" class="box-text">`intent_responses.json`</text>
+  <text x="1226" y="542" class="small">Safe unsupported-answer templates</text>
 
-  <rect x="1200" y="690" width="300" height="92" class="box-violet" />
-  <text x="1225" y="723" class="box-title">Evaluation Artifacts</text>
-  <text x="1225" y="752" class="box-text">Metrics tables and confusion matrices</text>
-  <text x="1225" y="775" class="small">Used for project validation and presentation</text>
+  <rect x="1200" y="570" width="310" height="100" class="box-violet" />
+  <text x="1226" y="602" class="box-title">SQLite Chat Store</text>
+  <text x="1226" y="629" class="box-text">`data/medichat.sqlite3`</text>
+  <text x="1226" y="652" class="small">Sessions, messages, metadata, and summaries</text>
 
-  <rect x="820" y="790" width="730" height="120" class="panel" filter="url(#shadow)" />
-  <text x="850" y="833" class="section">Offline ML Pipeline</text>
-  <text x="850" y="867" class="box-text">`src/data_processing.py` -> `src/train.py` -> `src/evaluate.py` -> model artifacts used by the runtime intent classifier</text>
+  <rect x="1200" y="690" width="310" height="90" class="box-violet" />
+  <text x="1226" y="722" class="box-title">Evaluation Artifacts</text>
+  <text x="1226" y="749" class="box-text">Metrics tables and confusion matrices</text>
 
-  <path d="M 320 280 C 350 280, 360 280, 390 280" class="connector" />
-  <path d="M 320 500 C 350 500, 360 500, 390 500" class="connector" />
-  <path d="M 350 690 C 370 690, 370 690, 390 690" class="connector" />
+  <rect x="350" y="820" width="1180" height="110" class="panel" filter="url(#shadow)" />
+  <text x="380" y="860" class="section">Offline ML Pipeline</text>
+  <text x="380" y="892" class="box-text">`src/data_processing.py` -> `src/train.py` -> `src/evaluate.py` -> saved model artifacts used by the runtime intent classifier</text>
 
-  <path d="M 720 280 C 760 280, 770 280, 830 280" class="connector" />
-  <path d="M 720 425 C 760 425, 770 425, 830 425" class="connector" />
-  <path d="M 720 605 C 760 605, 770 605, 830 605" class="connector" />
+  <path d="M 312 264 C 340 264, 352 254, 380 254" class="connector" />
+  <path d="M 312 468 C 340 468, 352 254, 380 254" class="connector" />
+  <path d="M 312 660 C 340 660, 352 254, 380 254" class="connector" />
 
-  <path d="M 975 340 L 975 360" class="connector" />
-  <path d="M 975 475 L 975 495" class="connector" />
-  <path d="M 975 600 L 975 620" class="connector" />
+  <path d="M 768 254 C 800 254, 820 278, 872 278" class="connector" />
+  <path d="M 768 362 C 800 362, 820 388, 872 388" class="connector" />
+  <path d="M 768 470 C 800 470, 820 503, 872 503" class="connector" />
+  <path d="M 768 578 C 800 578, 820 625, 872 625" class="connector" />
+  <path d="M 768 696 C 810 696, 824 625, 872 625" class="connector" />
 
-  <path d="M 1120 670 C 1160 670, 1160 626, 1200 626" class="connector" />
-  <path d="M 1120 660 C 1160 660, 1160 296, 1200 296" class="connector" />
-  <path d="M 1120 666 C 1160 666, 1160 406, 1200 406" class="connector" />
-  <path d="M 1120 672 C 1160 672, 1160 516, 1200 516" class="connector" />
+  <path d="M 1132 625 C 1160 625, 1170 285, 1200 285" class="connector" />
+  <path d="M 1132 630 C 1160 630, 1170 395, 1200 395" class="connector" />
+  <path d="M 1132 635 C 1160 635, 1170 505, 1200 505" class="connector" />
+  <path d="M 1132 640 C 1160 640, 1170 620, 1200 620" class="connector" />
 
-  <path d="M 1180 850 C 1180 815, 1250 796, 1250 782" class="connector-dashed" />
+  <path d="M 980 930 C 980 902, 1240 880, 1240 780" class="connector-dashed" />
 
-  <text x="510" y="725" class="tiny">Runtime flow: user input -> preprocessing -> contextual intent prediction -> retrieval-grounded response -> translation back -> UI + logging</text>
+  <text x="430" y="785" class="tiny">Agent-enhanced runtime: preprocess -> route -> clarify if needed -> ML + retrieval -> respond -> summarize session -> persist and display</text>
 </svg>

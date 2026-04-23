@@ -44,6 +44,13 @@ class ChatDatabase:
                     created_at TEXT NOT NULL,
                     FOREIGN KEY (session_id) REFERENCES sessions(session_id)
                 );
+
+                CREATE TABLE IF NOT EXISTS session_summaries (
+                    session_id TEXT PRIMARY KEY,
+                    summary_text TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    FOREIGN KEY (session_id) REFERENCES sessions(session_id)
+                );
                 """
             )
 
@@ -184,7 +191,12 @@ class ChatDatabase:
                         SELECT COUNT(*)
                         FROM messages m
                         WHERE m.session_id = s.session_id
-                    ) AS message_count
+                    ) AS message_count,
+                    (
+                        SELECT ss.summary_text
+                        FROM session_summaries ss
+                        WHERE ss.session_id = s.session_id
+                    ) AS summary_text
                 FROM sessions s
                 ORDER BY s.updated_at DESC
                 LIMIT ?
@@ -200,11 +212,41 @@ class ChatDatabase:
                 "language": row["language"],
                 "first_user_message": row["first_user_message"] or "",
                 "message_count": row["message_count"] or 0,
+                "summary_text": row["summary_text"] or "",
             }
             for row in rows
         ]
 
+    def get_session_summary(self, session_id: str) -> str:
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT summary_text
+                FROM session_summaries
+                WHERE session_id = ?
+                """,
+                (session_id,),
+            ).fetchone()
+        if not row:
+            return ""
+        return row["summary_text"] or ""
+
+    def upsert_session_summary(self, session_id: str, summary_text: str) -> None:
+        now = utc_timestamp()
+        with self._connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO session_summaries(session_id, summary_text, updated_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT(session_id) DO UPDATE SET
+                    summary_text = excluded.summary_text,
+                    updated_at = excluded.updated_at
+                """,
+                (session_id, summary_text, now),
+            )
+
     def clear_all_sessions(self) -> None:
         with self._connect() as connection:
             connection.execute("DELETE FROM messages")
+            connection.execute("DELETE FROM session_summaries")
             connection.execute("DELETE FROM sessions")

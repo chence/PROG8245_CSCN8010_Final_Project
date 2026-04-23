@@ -2,73 +2,169 @@
   {
     "intent": "Symptom Inquiry",
     "title": "Common cold pattern",
-    "content": "Common cold symptoms often include sore throat, nasal congestion, sneezing, mild cough, and low-grade fever. Symptoms are usually mild and improve gradually with rest and fluids.",
-    "keywords": ["cold", "sore throat", "runny nose", "mild fever"]
+    "content": "Common cold symptoms often include sore throat, runny nose, nasal congestion, sneezing, and a mild cough. Symptoms are usually mild and improve gradually with rest, fluids, and time.",
+    "keywords": ["cold", "sore throat", "runny nose", "nasal congestion", "mild cough"]
   },
   {
     "intent": "Symptom Inquiry",
     "title": "Flu-like symptoms",
     "content": "Flu-like illness can include fever, body aches, fatigue, cough, headache, and sore throat. Educational support should stay general and should not confirm a diagnosis.",
-    "keywords": ["flu", "fatigue", "fever", "body aches"]
+    "keywords": ["flu", "fever", "body aches", "fatigue", "headache", "cough"]
   },
   {
     "intent": "Symptom Inquiry",
-    "title": "Congestion and cough",
-    "content": "Congestion, mucus, and cough can happen with viral upper respiratory infections. Tracking worsening breathing difficulty, persistent high fever, or chest pain is important.",
-    "keywords": ["congestion", "mucus", "cough", "viral infection"]
+    "title": "Mild fever overview",
+    "content": "A mild fever can happen with common viral illnesses. General monitoring should focus on duration, whether the temperature is rising, and whether new warning signs appear.",
+    "keywords": ["mild fever", "temperature", "viral illness", "monitoring"]
+  },
+  {
+    "intent": "Symptom Inquiry",
+    "title": "Cough and congestion",
+    "content": "Cough, mucus, and congestion often occur with upper respiratory infections. It is important to watch for worsening breathing difficulty, chest pain, or a fever that does not improve.",
+    "keywords": ["cough", "congestion", "mucus", "upper respiratory infection"]
+  },
+  {
+    "intent": "Symptom Inquiry",
+    "title": "Sore throat and fever pattern",
+    "content": "Sore throat with fever can happen with viral or other infections. General guidance should focus on hydration, symptom monitoring, and warning signs rather than diagnosis.",
+    "keywords": ["sore throat", "fever", "hydration", "warning signs"]
+  },
+  {
+    "intent": "Symptom Inquiry",
+    "title": "Runny nose and sneezing",
+    "content": "Runny nose and sneezing are common with colds and allergies. General information should consider whether symptoms are mild, improving, and free of urgent warning signs.",
+    "keywords": ["runny nose", "sneezing", "allergy", "cold"]
+  },
+  {
+    "intent": "Symptom Inquiry",
+    "title": "Body aches and fatigue",
+    "content": "Body aches and fatigue can happen with viral illness, poor sleep, or other conditions. The chatbot should provide only broad educational guidance and recommend medical care if symptoms are severe or worsening.",
+    "keywords": ["body aches", "fatigue", "viral illness", "worsening"]
   },
   {
     "intent": "Self-Care Advice",
     "title": "Hydration and rest",
-    "content": "For mild symptoms, general self-care includes resting, drinking fluids, using warm liquids for throat comfort, and monitoring whether symptoms improve over the next few days.",
-    "keywords": ["rest", "hydration", "warm fluids"]
+    "content": "For mild cold or flu-like symptoms, general self-care includes rest, drinking fluids, warm liquids for throat comfort, and monitoring whether symptoms improve over the next few days.",
+    "keywords": ["rest", "hydration", "warm liquids", "fluids"]
   },
   {
     "intent": "Self-Care Advice",
     "title": "Managing a sore throat",
     "content": "General sore throat self-care may include fluids, humidified air, lozenges if appropriate, and avoiding irritants like smoke. Persistent or severe symptoms need professional review.",
-    "keywords": ["sore throat", "lozenges", "humidified air"]
+    "keywords": ["sore throat", "lozenges", "humidified air", "irritants"]
+  },
+  {
+    "intent": "Self-Care Advice",
+    "title": "Managing a mild fever",
+    "content": "General comfort steps for a mild fever may include rest, fluids, light clothing, and monitoring symptoms. Educational guidance should avoid personal dosing advice or diagnosis.",
+    "keywords": ["mild fever", "rest", "fluids", "comfort"]
+  },
+  {
+    "intent": "Self-Care Advice",
+    "title": "Cough comfort measures",
+    "content": "For a mild cough, general comfort measures can include fluids, warm drinks, humidified air, and watching whether the cough becomes more severe or lasts longer than expected.",
+    "keywords": ["cough", "warm drinks", "humidifier", "comfort"]
+  },
+  {
+    "intent": "Self-Care Advice",
+    "title": "Nasal congestion self-care",
+    "content": "General self-care for nasal congestion may include fluids, rest, saline spray, and humidified air. If symptoms worsen or breathing becomes difficult, medical care may be needed.",
+    "keywords": ["nasal congestion", "saline", "humidified air", "rest"]
   },
   {
     "intent": "Self-Care Advice",
     "title": "Monitoring mild respiratory symptoms",
     "content": "Mild respiratory symptoms can be monitored by watching duration, checking whether breathing becomes harder, and seeking help if symptoms intensify instead of improving.",
-    "keywords": ["monitoring", "respiratory", "symptoms", "duration"]
+    "keywords": ["monitoring", "respiratory", "duration", "breathing"]
   },
   {
     "intent": "Medication Question",
     "title": "Over-the-counter medication caution",
     "content": "General information about over-the-counter products should stress label reading, age limits, ingredient overlap, and asking a pharmacist or clinician when unsure.",
-    "keywords": ["OTC", "medication", "dose", "label"]
+    "keywords": ["OTC", "medication", "dose", "label", "ingredient overlap"]
+  },
+  {
+    "intent": "Medication Question",
+    "title": "Ibuprofen and mild fever",
+    "content": "Ibuprofen is a common over-the-counter pain reliever and fever reducer for many adults. General guidance can say it is a common option for pain or fever relief, while still reminding the user to follow the package label, check warnings, and ask a pharmacist or clinician when unsure.",
+    "keywords": ["ibuprofen", "can i take ibuprofen", "fever", "pain reliever", "OTC", "label", "advil", "motrin"]
+  },
+  {
+    "intent": "Medication Question",
+    "title": "Direct answer for ibuprofen questions",
+    "content": "When the user asks whether ibuprofen can be taken, a supported answer may say that ibuprofen is commonly used as an over-the-counter pain reliever and fever reducer for many adults, then immediately remind the user to follow the label and check with a pharmacist or clinician if unsure.",
+    "keywords": ["can i take ibuprofen", "is ibuprofen okay", "ibuprofen okay", "take ibuprofen", "布洛芬"]
+  },
+  {
+    "intent": "Medication Question",
+    "title": "Acetaminophen and fever relief",
+    "content": "Acetaminophen is another common over-the-counter option used for pain or fever relief. Educational guidance should focus on careful label reading and avoiding accidental overuse, especially when combination products are also being taken.",
+    "keywords": ["acetaminophen", "paracetamol", "tylenol", "fever relief", "label", "overuse"]
   },
   {
     "intent": "Medication Question",
     "title": "Cold medicine combinations",
-    "content": "Combination cold medicines can contain overlapping pain relievers, decongestants, or cough suppressants. People should avoid doubling ingredients unintentionally.",
-    "keywords": ["combination medicine", "ingredients", "pain reliever"]
+    "content": "Combination cold medicines can contain overlapping pain relievers, decongestants, or cough suppressants. People should avoid doubling ingredients unintentionally when using more than one product.",
+    "keywords": ["combination medicine", "ingredients", "pain reliever", "decongestant", "cough suppressant"]
+  },
+  {
+    "intent": "Medication Question",
+    "title": "Read the active ingredients",
+    "content": "A safe general medication habit is to check the active ingredient list on each package. This helps reduce the risk of taking two products that contain the same fever or pain medicine.",
+    "keywords": ["active ingredients", "package", "same medicine", "double dosing"]
   },
   {
     "intent": "Medication Question",
     "title": "Medication questions are non-diagnostic",
-    "content": "MediChat can only give general medication safety information. It should not tell the user what they personally should take or confirm that a medication is appropriate for them.",
-    "keywords": ["pharmacist", "safety", "non-diagnostic"]
+    "content": "MediChat can only give general medication safety information. It should not tell the user exactly what they personally should take or confirm that a medication is right for them.",
+    "keywords": ["pharmacist", "safety", "non-diagnostic", "appropriate"]
+  },
+  {
+    "intent": "Medication Question",
+    "title": "When to ask a pharmacist",
+    "content": "A pharmacist is a useful resource when a person is unsure about age limits, ingredient overlap, interactions, or how to use an over-the-counter fever or cold medicine safely.",
+    "keywords": ["pharmacist", "interaction", "ingredient overlap", "OTC fever medicine"]
   },
   {
     "intent": "Seek Medical Help",
     "title": "Urgent respiratory warning signs",
     "content": "Shortness of breath, chest pain, bluish lips, confusion, or rapidly worsening symptoms are urgent warning signs and should prompt immediate medical attention.",
-    "keywords": ["shortness of breath", "urgent", "chest pain"]
+    "keywords": ["shortness of breath", "urgent", "chest pain", "bluish lips", "confusion"]
   },
   {
     "intent": "Seek Medical Help",
     "title": "When to contact a clinician",
     "content": "A clinician should be contacted when fever is persistent, symptoms are worsening, coughing is severe or prolonged, or the person is worried about dehydration or breathing changes.",
-    "keywords": ["persistent fever", "worsening symptoms", "clinician"]
+    "keywords": ["persistent fever", "worsening symptoms", "clinician", "dehydration", "breathing changes"]
+  },
+  {
+    "intent": "Seek Medical Help",
+    "title": "High fever or worsening fever",
+    "content": "A fever that is high, persistent, or getting worse deserves medical attention, especially when it is accompanied by trouble breathing, confusion, dehydration, or severe weakness.",
+    "keywords": ["high fever", "persistent fever", "worse", "severe weakness"]
+  },
+  {
+    "intent": "Seek Medical Help",
+    "title": "Trouble swallowing or severe throat symptoms",
+    "content": "Severe throat pain, trouble swallowing, drooling, or difficulty breathing are warning signs that need professional medical evaluation rather than home management alone.",
+    "keywords": ["trouble swallowing", "drooling", "difficulty breathing", "severe throat pain"]
+  },
+  {
+    "intent": "Seek Medical Help",
+    "title": "Dehydration warning signs",
+    "content": "Signs such as dizziness, very dark urine, not drinking enough, or increasing weakness can suggest dehydration and may need clinician assessment, especially if illness is continuing.",
+    "keywords": ["dehydration", "dizziness", "dark urine", "weakness"]
   },
   {
     "intent": "General",
     "title": "Project safety scope",
     "content": "This chatbot provides general educational medical information only. It does not diagnose, prescribe, or replace licensed professional care.",
     "keywords": ["safety", "scope", "educational", "not diagnosis"]
+  },
+  {
+    "intent": "General",
+    "title": "Perfect demo scenario",
+    "content": "A strong demo question is a common, non-emergency problem such as mild fever, cough, sore throat, or a simple over-the-counter medication safety question. These match the supported scope best.",
+    "keywords": ["demo", "mild fever", "cough", "sore throat", "OTC medication"]
   }
 ]

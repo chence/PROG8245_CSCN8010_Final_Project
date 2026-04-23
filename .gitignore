@@ -1,5 +1,6 @@
 # custom ignores
 .history
+.DS_Store
 
 # keep project data and model artifacts for demo/reproducibility
 # data

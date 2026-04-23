@@ -32,6 +32,7 @@ class AppConfig:
     confidence_threshold: float = float(os.getenv("MEDICHAT_CONFIDENCE_THRESHOLD", "0.45"))
     retrieval_threshold: float = float(os.getenv("MEDICHAT_RETRIEVAL_THRESHOLD", "0.1"))
     top_k_context: int = int(os.getenv("MEDICHAT_TOP_K_CONTEXT", "3"))
+    default_model_name: str = os.getenv("MEDICHAT_MODEL_NAME", "svd_logreg")
     openai_model: str = os.getenv("MEDICHAT_OPENAI_MODEL", "gpt-4o-mini")
     openai_transcription_model: str = os.getenv(
         "MEDICHAT_TRANSCRIPTION_MODEL",

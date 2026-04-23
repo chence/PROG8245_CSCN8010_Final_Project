@@ -5,6 +5,7 @@ from typing import Any
 
 import gradio as gr
 
+from src.config import get_config
 from src.database import ChatDatabase
 from src.predict import MediChatEngine
 from src.speech_to_text import transcribe_audio
@@ -31,7 +32,7 @@ html, body, .gradio-container {
 }
 #app-header {
     flex: 0 0 auto;
-    padding: 10px 18px 8px;
+    padding: 5px 8px 5px;
     border-bottom: 1px solid #d8e1ee;
     background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(10px);
@@ -51,8 +52,8 @@ html, body, .gradio-container {
 #content-shell {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 10px 12px;
-    gap: 12px;
+    padding: 1px 1px;
+    gap: 6px;
     align-items: stretch;
     flex-wrap: nowrap !important;
 }
@@ -79,27 +80,27 @@ html, body, .gradio-container {
     overflow: hidden;
     transition: width 0.2s ease, min-width 0.2s ease, max-width 0.2s ease, padding 0.2s ease;
 }
-#history-sidebar.sidebar-collapsed,
+#history-sidebar.sidebar-collapsed {
+    flex: 0 0 112px !important;
+    width: 112px;
+    min-width: 112px;
+    max-width: 112px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
 #details-sidebar.sidebar-collapsed {
-    flex: 0 0 60px !important;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    flex: 0 0 156px !important;
+    width: 156px;
+    min-width: 156px;
+    max-width: 156px;
     padding-left: 8px;
     padding-right: 8px;
 }
 .sidebar-header {
     align-items: center;
-    justify-content: space-between;
+    justify-content: stretch;
     gap: 10px;
     margin-bottom: 12px;
-}
-.sidebar-title {
-    margin: 0;
-}
-.sidebar-title h3,
-.sidebar-title p {
-    margin: 0;
 }
 .sidebar-body {
     flex: 1 1 auto;
@@ -108,25 +109,46 @@ html, body, .gradio-container {
     display: flex;
     flex-direction: column;
 }
-#history-sidebar.sidebar-collapsed .sidebar-title,
-#details-sidebar.sidebar-collapsed .sidebar-title {
-    display: none !important;
-}
-#history-sidebar.sidebar-collapsed .sidebar-header,
-#details-sidebar.sidebar-collapsed .sidebar-header {
-    justify-content: center;
-}
 .sidebar-toggle {
-    min-width: 38px !important;
-    width: 38px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+    border-radius: 14px !important;
+    border: 1px solid #c8d8ef !important;
+    background: linear-gradient(180deg, #f8fbff 0%, #eaf2ff 100%) !important;
+    color: #29456f !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 4px 14px rgba(88, 115, 166, 0.08);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sidebar-toggle:hover {
+    border-color: #9db9e8 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #edf4ff 100%) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 18px rgba(88, 115, 166, 0.12);
+    transform: translateY(-1px);
+}
+.sidebar-toggle:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 4px rgba(88, 115, 166, 0.12);
+}
+#history-sidebar .sidebar-toggle {
+    color: #204768 !important;
+}
+#details-sidebar .sidebar-toggle {
+    color: #5a3f75 !important;
+    background: linear-gradient(180deg, #fbf9ff 0%, #f1ebff 100%) !important;
+    border-color: #d5c8ef !important;
+}
+#details-sidebar .sidebar-toggle:hover {
+    background: linear-gradient(180deg, #ffffff 0%, #f4efff 100%) !important;
+    border-color: #bda7ea !important;
 }
 #history-sidebar.sidebar-collapsed .sidebar-toggle,
 #details-sidebar.sidebar-collapsed .sidebar-toggle {
-    min-width: 28px !important;
-    width: 28px !important;
-    height: 28px !important;
+    font-size: 0.9rem !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
 }
 #center-panel {
     flex: 1 1 auto !important;
@@ -279,7 +301,7 @@ html, body, .gradio-container {
 }
 #app-footer {
     flex: 0 0 auto;
-    padding: 12px 24px 16px;
+    padding: 8px 20px 20px;
     border-top: 1px solid #d8e1ee;
     color: #5d6e82;
     background: rgba(255, 255, 255, 0.88);
@@ -336,7 +358,7 @@ html, body, .gradio-container {
 def get_engine() -> MediChatEngine:
     global engine
     if engine is None:
-        engine = MediChatEngine(model_name="baseline_nb")
+        engine = MediChatEngine(model_name=get_config().default_model_name)
     return engine
 
 
@@ -349,12 +371,19 @@ def _format_response(result: dict[str, Any], transcribed_text: str = "") -> tupl
         )
 
     details = [
+        f"Agent route: {result.get('route', 'standard_qa')}",
+        f"Route reason: {result.get('route_reason', 'n/a')}",
         f"Intent: {result['intent']}",
         f"Detected language: {result['language']}",
         f"Classifier confidence: {result['confidence']:.3f}",
         f"Retrieval score: {result['retrieval_score']:.3f}",
         f"Supported answer: {'yes' if result['supported'] else 'no'}",
+        f"Support mode: {result.get('support_mode', 'unknown')}",
     ]
+    if result.get("clarification_reason"):
+        details.append(f"Clarification trigger: {result['clarification_reason']}")
+    if result.get("session_summary"):
+        details.append(f"Session summary: {result['session_summary']}")
     if transcribed_text:
         details.append(f"Transcribed audio: {transcribed_text}")
     return main_text, "\n".join(details)
@@ -390,6 +419,7 @@ def load_session_from_url(session_id: str | None):
     state = {"session_id": normalized_session_id}
     assistant_messages = [message for message in messages if message["role"] == "assistant"]
     details = f"Loaded session {normalized_session_id} with {len(messages)} messages."
+    session_summary = database.get_session_summary(normalized_session_id)
     if assistant_messages:
         last_assistant = assistant_messages[-1]
         details_lines = [details]
@@ -397,7 +427,14 @@ def load_session_from_url(session_id: str | None):
             details_lines.append(f"Last intent: {last_assistant['intent']}")
         if last_assistant.get("confidence") is not None:
             details_lines.append(f"Last confidence: {last_assistant['confidence']:.3f}")
+        route = (last_assistant.get("metadata") or {}).get("route")
+        if route:
+            details_lines.append(f"Last route: {route}")
+        if session_summary:
+            details_lines.append(f"Session summary: {session_summary}")
         details = "\n".join(details_lines)
+    elif session_summary:
+        details = f"{details}\nSession summary: {session_summary}"
 
     return _messages_to_chatbot(messages), state, details, normalized_session_id
 
@@ -602,7 +639,7 @@ with gr.Blocks(title="MediChat") as demo:
 
     with gr.Column(elem_id="page-shell"):
         with gr.Row(elem_id="app-header"):
-            gr.Markdown("**MediChat** Multilingual medical information chatbot for the PROG8245 final project.")
+            gr.Markdown("**MediChat**")
 
         with gr.Row(elem_id="content-shell"):
             with gr.Column(
@@ -610,11 +647,10 @@ with gr.Blocks(title="MediChat") as demo:
                 min_width=60,
                 visible=True,
                 elem_id="history-sidebar",
-                elem_classes=["sidebar-panel"],
+                elem_classes=["sidebar-panel", "sidebar-collapsed"],
             ) as sidebar_column:
                 with gr.Row(elem_classes="sidebar-header"):
-                    gr.Markdown("### History", elem_classes="sidebar-title")
-                    sidebar_button = gr.Button("☰", size="sm", variant="secondary", elem_classes="sidebar-toggle")
+                    sidebar_button = gr.Button("History", size="sm", variant="secondary", elem_classes="sidebar-toggle")
                 with gr.Column(elem_id="history-body", elem_classes="sidebar-body"):
                     session_picker = gr.Radio(
                         label="Sessions",
@@ -662,8 +698,7 @@ with gr.Blocks(title="MediChat") as demo:
                 elem_classes=["sidebar-panel"],
             ) as details_column:
                 with gr.Row(elem_classes="sidebar-header"):
-                    gr.Markdown("### Turn Details", elem_classes="sidebar-title")
-                    details_button = gr.Button("ℹ", size="sm", variant="secondary", elem_classes="sidebar-toggle")
+                    details_button = gr.Button("Turn Details", size="sm", variant="secondary", elem_classes="sidebar-toggle")
                 with gr.Column(elem_id="details-body", elem_classes="sidebar-body"):
                     details_box = gr.Textbox(
                         show_label=False,
@@ -675,7 +710,7 @@ with gr.Blocks(title="MediChat") as demo:
         with gr.Row(elem_id="app-footer"):
             gr.Markdown(
                 """
-                PROG8245 & CSCN8010 | Final Project | Members: Ce Chen, Zhuoran Zhang, Haibo Yuan, Abdallah Mohamed
+                PROG8245 & CSCN8010 | Final Project | Group 1 & 7/8 | Members: Ce Chen, Zhuoran Zhang, Haibo Yuan, Abdallah Mohamed
                 """
             )
 
@@ -772,25 +807,20 @@ with gr.Blocks(title="MediChat") as demo:
         () => {
             const sidebar = document.getElementById("history-sidebar");
             const button = sidebar?.querySelector(".sidebar-toggle");
-            const title = sidebar?.querySelector(".sidebar-title");
             const body = document.getElementById("history-body");
             if (sidebar) {
                 sidebar.classList.toggle("sidebar-collapsed");
                 const collapsed = sidebar.classList.contains("sidebar-collapsed");
-                sidebar.style.width = collapsed ? "60px" : "280px";
-                sidebar.style.minWidth = collapsed ? "60px" : "280px";
-                sidebar.style.maxWidth = collapsed ? "60px" : "280px";
-                sidebar.style.flexBasis = collapsed ? "60px" : "280px";
-                if (title) {
-                    title.style.display = collapsed ? "none" : "";
-                }
+                sidebar.style.width = collapsed ? "112px" : "280px";
+                sidebar.style.minWidth = collapsed ? "112px" : "280px";
+                sidebar.style.maxWidth = collapsed ? "112px" : "280px";
+                sidebar.style.flexBasis = collapsed ? "112px" : "280px";
                 if (body) {
                     body.style.display = collapsed ? "none" : "flex";
                 }
                 if (button) {
-                    button.style.width = collapsed ? "28px" : "38px";
-                    button.style.minWidth = collapsed ? "28px" : "38px";
-                    button.style.height = collapsed ? "28px" : "38px";
+                    button.style.width = "100%";
+                    button.style.minWidth = "0";
                 }
             }
         }
@@ -808,25 +838,20 @@ with gr.Blocks(title="MediChat") as demo:
         () => {
             const sidebar = document.getElementById("details-sidebar");
             const button = sidebar?.querySelector(".sidebar-toggle");
-            const title = sidebar?.querySelector(".sidebar-title");
             const body = document.getElementById("details-body");
             if (sidebar) {
                 sidebar.classList.toggle("sidebar-collapsed");
                 const collapsed = sidebar.classList.contains("sidebar-collapsed");
-                sidebar.style.width = collapsed ? "60px" : "280px";
-                sidebar.style.minWidth = collapsed ? "60px" : "280px";
-                sidebar.style.maxWidth = collapsed ? "60px" : "280px";
-                sidebar.style.flexBasis = collapsed ? "60px" : "280px";
-                if (title) {
-                    title.style.display = collapsed ? "none" : "";
-                }
+                sidebar.style.width = collapsed ? "156px" : "280px";
+                sidebar.style.minWidth = collapsed ? "156px" : "280px";
+                sidebar.style.maxWidth = collapsed ? "156px" : "280px";
+                sidebar.style.flexBasis = collapsed ? "156px" : "280px";
                 if (body) {
                     body.style.display = collapsed ? "none" : "flex";
                 }
                 if (button) {
-                    button.style.width = collapsed ? "28px" : "38px";
-                    button.style.minWidth = collapsed ? "28px" : "38px";
-                    button.style.height = collapsed ? "28px" : "38px";
+                    button.style.width = "100%";
+                    button.style.minWidth = "0";
                 }
             }
         }
@@ -901,33 +926,29 @@ with gr.Blocks(title="MediChat") as demo:
         outputs=[],
         js="""
         () => {
-            const restoreSidebar = (id, bodyId) => {
+            const restoreSidebar = (id, bodyId, collapsedWidth, expandedWidth, startCollapsed) => {
                 const sidebar = document.getElementById(id);
                 if (!sidebar) {
                     return;
                 }
-                sidebar.classList.remove("sidebar-collapsed");
-                sidebar.style.width = "280px";
-                sidebar.style.minWidth = "280px";
-                sidebar.style.maxWidth = "280px";
-                sidebar.style.flexBasis = "280px";
-                const title = sidebar.querySelector(".sidebar-title");
+                sidebar.classList.toggle("sidebar-collapsed", startCollapsed);
+                const width = startCollapsed ? collapsedWidth : expandedWidth;
+                sidebar.style.width = width;
+                sidebar.style.minWidth = width;
+                sidebar.style.maxWidth = width;
+                sidebar.style.flexBasis = width;
                 const body = document.getElementById(bodyId);
                 const button = sidebar.querySelector(".sidebar-toggle");
-                if (title) {
-                    title.style.display = "";
-                }
                 if (body) {
-                    body.style.display = "flex";
+                    body.style.display = startCollapsed ? "none" : "flex";
                 }
                 if (button) {
-                    button.style.width = "38px";
-                    button.style.minWidth = "38px";
-                    button.style.height = "38px";
+                    button.style.width = "100%";
+                    button.style.minWidth = "0";
                 }
             };
-            restoreSidebar("history-sidebar", "history-body");
-            restoreSidebar("details-sidebar", "details-body");
+            restoreSidebar("history-sidebar", "history-body", "112px", "280px", true);
+            restoreSidebar("details-sidebar", "details-body", "156px", "280px", false);
         }
         """,
     ).then(

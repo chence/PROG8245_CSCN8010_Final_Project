@@ -34,7 +34,7 @@ LANGUAGE_NAMES = {
     "zh-tw": "Traditional Chinese",
 }
 
-LANGUAGE_DETECTION_METHOD = os.getenv("MEDICHAT_LANGUAGE_DETECTION_METHOD", "langdetect").lower()
+LANGUAGE_DETECTION_METHOD = os.getenv("MEDICHAT_LANGUAGE_DETECTION_METHOD", "openai").lower()
 
 
 @dataclass
@@ -83,7 +83,7 @@ def detect_language_openai(text: str) -> str:
             ],
         )
         detected = response.choices[0].message.content.strip().lower()
-        print(f"---OpenAI detected language: {detected}")
+        # print(f"---OpenAI detected language: {detected}")
         return "zh" if detected.startswith("zh") else detected
     except Exception as exc:
         print(f"---OpenAI language detection error: {exc}, falling back to langdetect")
